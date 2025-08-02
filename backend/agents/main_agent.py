@@ -1,4 +1,7 @@
-from cursor import agent
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+from cursor_mock import agent
 from agents.profiler import profile_customer
 from agents.matcher import match_annuity_product, fetch_annuity_products
 from agents.calculator import calculate_annuity_income
