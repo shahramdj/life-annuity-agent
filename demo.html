@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life Annuity Advisor - Demo</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            margin-bottom: 1.5rem;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            fontSize: 2.5rem;
+            font-weight: 600;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+            margin-bottom: 1rem;
+        }
+        textarea:focus {
+            border-color: #667eea;
+        }
+        button {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .result {
+            white-space: pre-wrap;
+            font-family: inherit;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+        .demo-note {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>🏦 Life Annuity Advisor</h1>
+            <p class="subtitle">Get personalized annuity recommendations powered by AI</p>
+            
+            <div class="demo-note">
+                <strong>📝 Demo Mode:</strong> This is a standalone demo showing the application's functionality. In the full version, this connects to the AI backend API.
+            </div>
+
+            <label for="input">Tell us about your retirement goals and financial situation:</label>
+            <textarea 
+                id="input" 
+                rows="6" 
+                placeholder="Example: I'm 67 years old, recently retired, and looking for guaranteed income. I prefer low-risk investments and want to ensure steady monthly payments for life..."
+            ></textarea>
+            
+            <button onclick="getRecommendation()">🎯 Get My Recommendation</button>
+        </div>
+
+        <div id="result-card" class="card" style="display: none;">
+            <h2>📋 Your Personalized Recommendation</h2>
+            <div id="result" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        // Simulated AI recommendation logic (same as backend)
+        function profileCustomer(conversation) {
+            // Simple mock implementation
+            return {
+                age: "67",
+                retired: true,
+                risk_tolerance: "low",
+                income_goal: "guaranteed income for life"
+            };
+        }
+
+        function matchAnnuityProduct(profile) {
+            if (profile.retired && profile.risk_tolerance === "low") {
+                return { recommended_product: "Immediate Fixed Annuity" };
+            }
+            return { recommended_product: "Deferred Variable Annuity" };
+        }
+
+        function fetchAnnuityProducts(risk, type) {
+            return [
+                { name: "Lifetime Secure Annuity", type: "fixed", risk: "low", provider: "Acme Insurance" },
+                { name: "Indexed Growth Annuity", type: "indexed", risk: "moderate", provider: "TrustLife" },
+                { name: "Market Plus Variable", type: "variable", risk: "high", provider: "FinSecure" }
+            ];
+        }
+
+        function calculateAnnuityIncome(age, amount = 100000, rate = 0.05, years = 20) {
+            const annual_income = amount * rate;
+            return {
+                monthly_income: Math.round(annual_income / 12 * 100) / 100,
+                total_income: Math.round(annual_income * years * 100) / 100,
+                years: years
+            };
+        }
+
+        function explainProduct(productName) {
+            const descriptions = {
+                "Immediate Fixed Annuity": "Provides guaranteed monthly income starting immediately.",
+                "Deferred Variable Annuity": "Offers growth potential with market risk, suitable for long‑term goals."
+            };
+            return descriptions[productName] || "Product details not available.";
+        }
+
+        function complianceCheck(profile, product) {
+            if (profile.risk_tolerance === "low" && product.includes("Variable")) {
+                return "⚠️ May not match risk profile.";
+            }
+            return "✅ Suitable recommendation.";
+        }
+
+        function getRecommendation() {
+            const input = document.getElementById('input').value.trim();
+            if (!input) {
+                alert('Please enter your retirement scenario first.');
+                return;
+            }
+
+            const button = document.querySelector('button');
+            button.disabled = true;
+            button.textContent = '🔄 Analyzing your profile...';
+
+            // Simulate processing delay
+            setTimeout(() => {
+                // Run the same logic as the backend
+                const profile = profileCustomer(input);
+                const productData = matchAnnuityProduct(profile);
+                const productName = productData.recommended_product;
+                const explanation = explainProduct(productName);
+                const products = fetchAnnuityProducts(profile.risk_tolerance, productName.toLowerCase());
+                const income = calculateAnnuityIncome(parseInt(profile.age), 100000);
+                const compliance = complianceCheck(profile, productName);
+
+                const result = `💡 Recommendation: **${productName}**
+${explanation}
+
+📦 Products matched: ${products.map(p => p.name).join(', ')}
+📊 Estimated income: $${income.monthly_income}/mo for ${income.years} years
+${compliance}
+
+💰 Example calculation based on $100,000 investment:
+   • Monthly income: $${income.monthly_income}
+   • Total income over ${income.years} years: $${income.total_income}
+   • Annual return rate: 5%
+
+🏢 Matched Providers:
+${products.map(p => `   • ${p.name} (${p.provider})`).join('\n')}`;
+
+                document.getElementById('result').textContent = result;
+                document.getElementById('result-card').style.display = 'block';
+                
+                button.disabled = false;
+                button.textContent = '🎯 Get My Recommendation';
+                
+                // Scroll to result
+                document.getElementById('result-card').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+
+        // Allow Ctrl+Enter to submit
+        document.getElementById('input').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                getRecommendation();
+            }
+        });
+    </script>
+</body>
+</html>
