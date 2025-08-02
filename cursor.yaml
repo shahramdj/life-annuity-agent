@@ -1,0 +1,18 @@
+project:
+  name: life-annuity-agent
+  description: Agentic AI assistant for recommending life annuity products
+  entrypoint: backend/agents/main_agent.py
+
+agents:
+  - path: backend/agents/profiler.py
+    name: profile_customer
+  - path: backend/agents/matcher.py
+    name: match_annuity_product
+  - path: backend/agents/calculator.py
+    name: calculate_annuity_income
+  - path: backend/agents/explainer.py
+    name: explain_product
+  - path: backend/agents/compliance.py
+    name: compliance_check
+  - path: backend/agents/main_agent.py
+    name: annuity_recommendation_agent
