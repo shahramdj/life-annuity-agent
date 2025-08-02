@@ -8,7 +8,7 @@ export default function App() {
   const askAgent = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/recommend", {
+      const res = await fetch("/api/recommend", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ input }),
