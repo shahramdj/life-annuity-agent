@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 *.zip
 desktop
+node_modules/
+dist/
+.env
