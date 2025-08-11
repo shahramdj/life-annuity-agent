@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Fixed Annuity",
+    "type": "annuity",
+    "description": "Pays a guaranteed income for a specified period or for life.",
+    "features": ["Guaranteed income", "Fixed interest rate"],
+    "benefits": ["Stable retirement income", "Low risk"],
+    "suitable_for": {
+      "age_range": [50, 85],
+      "risk_level": "low",
+      "financial_goals": ["retirement income"]
+    }
+  },
+  {
+    "name": "Variable Annuity",
+    "type": "annuity",
+    "description": "An annuity with investment options, offering potential for higher growth.",
+    "features": ["Market-based growth", "Tax-deferred savings", "Death benefit"],
+    "benefits": ["Higher growth potential", "Flexible investment choices"],
+    "suitable_for": {
+      "age_range": [40, 70],
+      "risk_level": "medium",
+      "financial_goals": ["growth", "retirement income"]
+    }
+  },
+  {
+    "name": "Registered Index-Linked Annuity (RILA)",
+    "type": "annuity",
+    "description": "Offers returns based on a stock market index, with protection against losses.",
+    "features": ["Index-linked returns", "Partial downside protection (floor)", "Higher growth potential"],
+    "benefits": ["Balances growth potential with risk management", "Tax-deferred growth"],
+    "suitable_for": {
+      "age_range": [45, 65],
+      "risk_level": "high",
+      "financial_goals": ["growth"]
+    }
+  },
+  {
+    "name": "Term Life Insurance",
+    "type": "life_insurance",
+    "description": "Provides coverage for a specific term (e.g., 10, 20, or 30 years).",
+    "features": ["Affordable premiums", "Fixed death benefit", "No cash value"],
+    "benefits": ["Cost-effective protection", "Ideal for covering specific debts like a mortgage"],
+    "suitable_for": {
+      "age_range": [25, 65],
+      "risk_level": "low",
+      "financial_goals": ["protection"]
+    }
+  },
+  {
+    "name": "Whole Life Insurance",
+    "type": "life_insurance",
+    "description": "Lifelong coverage with a cash value component that grows over time.",
+    "features": ["Lifelong protection", "Cash value accumulation", "Fixed premiums"],
+    "benefits": ["Permanent coverage", "Builds equity", "Can be used for estate planning"],
+    "suitable_for": {
+      "age_range": [30, 70],
+      "risk_level": "low",
+      "financial_goals": ["protection", "growth"]
+    }
+  }
+]
